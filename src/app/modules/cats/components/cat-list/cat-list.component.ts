@@ -1,7 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadCats, setFilterString, setShownCats } from 'src/app/store/cat.action';
+import {
+  loadCats,
+  setFilterString,
+  setShownCats,
+} from 'src/app/store/cats.action';
 import { getFilteredCatsViewModel } from 'src/app/store/cats.selectors';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cat-list',
@@ -11,7 +16,7 @@ import { getFilteredCatsViewModel } from 'src/app/store/cats.selectors';
 })
 export class CatListComponent implements OnInit {
   readonly viewModel$ = this.store.select(getFilteredCatsViewModel);
-  public shownCats:number|null = 10;
+
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
@@ -22,8 +27,8 @@ export class CatListComponent implements OnInit {
     this.store.dispatch(setFilterString({ filterString: input }));
   }
 
-  setShownCatsLength(input:any){
-    this.store.dispatch(setShownCats({ shownCats: input.value }));
+  onPageChange(event: PageEvent): void {
+    this.store.dispatch(setShownCats({ shownCats: event }));
   }
 
 }

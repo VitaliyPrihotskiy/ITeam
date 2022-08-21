@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap,withLatestFrom  } from 'rxjs';
+import { catchError, map, of, switchMap  } from 'rxjs';
 import { CatsService } from '../services/cats.service';
-import { loadCats, loadCatsFailure, loadCatsSuccess } from './cat.action';
+import { loadCats, loadCatsFailure, loadCatsSuccess } from './cats.action';
 
 @Injectable()
 export class CatsEffect {
   constructor(
     private readonly actions$: Actions,
     private readonly catsService: CatsService,
-    private readonly store: Store,
   ) {}
 
   loadCats$ = createEffect(() =>

@@ -8,15 +8,13 @@
         (input)="filter(inp.value)"
         placeholder="Input breed, temperament or part of description"
       />
-      <mat-slider
-        thumbLabel
-        tickInterval="1"
-        step="1"
-        min="0"
-        max="25"
-        aria-label="cats"
-        (input)="setShownCatsLength($event)"
-      ></mat-slider>
+      <mat-paginator
+        [length]="25"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 15, 20, 25]"
+        (page)="onPageChange($event)"
+      >
+      </mat-paginator>
     </div>
   </main>
   <div class="content">

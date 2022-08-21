@@ -6,7 +6,8 @@ import {
     loadCatsSuccess,
     setFilterString,
     setShownCats,
-} from "./cat.action";
+} from "./cats.action";
+import { PageEvent } from '@angular/material/paginator';
 
 export const CATS_FEATURE_KEY = 'cats';
 
@@ -15,7 +16,7 @@ export interface CatsState {
     isLoading: boolean;
     error: unknown;
     filterString: string;
-    shownCats:number|null;
+    shownCats:PageEvent;
 }
 
 const initialState: CatsState = {
@@ -23,7 +24,12 @@ const initialState: CatsState = {
     isLoading: false,
     error: null,
     filterString: '',
-    shownCats:10,
+    shownCats:{
+        length:25,
+        pageIndex:0,
+        pageSize:10,
+        previousPageIndex:0,
+    },
 };
 
 const catsReducer = createReducer(

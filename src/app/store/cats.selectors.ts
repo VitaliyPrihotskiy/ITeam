@@ -1,6 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Cat } from '../models/cats.model';
 import { CatsState, CATS_FEATURE_KEY } from './cats.reducer';
+import { PageEvent } from '@angular/material/paginator';
 
 const getCatsFeatureState = createFeatureSelector<CatsState>(CATS_FEATURE_KEY);
 
@@ -35,7 +36,7 @@ export const getFilteredCatsViewModel = createSelector(
   })
 );
 
-function filter(input: string, itemList: Cat[], length: number | null): Cat[] {
+function filter(input: string, itemList: Cat[], pageEvent: PageEvent): Cat[] {
   input = input.toLowerCase();
   itemList = itemList.filter(
     (e) =>
@@ -43,8 +44,13 @@ function filter(input: string, itemList: Cat[], length: number | null): Cat[] {
       e.breedDescription.toLowerCase().includes(input) ||
       e.breedTemperament.toLowerCase().includes(input)
   );
-  if (length) {
-    itemList = itemList.slice(0, length);
+  if (pageEvent) {
+    const startIndex = pageEvent.pageIndex * pageEvent.pageSize;
+  let endIndex  = startIndex +pageEvent.pageSize;
+  if (endIndex>itemList.length){
+    endIndex=itemList.length
+  }
+    itemList = itemList.slice(startIndex, endIndex);
   }
   return itemList;
 }

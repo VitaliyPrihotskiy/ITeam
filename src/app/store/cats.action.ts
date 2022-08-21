@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Cat } from '../models/cats.model';
+import { PageEvent } from '@angular/material/paginator';
 
 function scoped(templateString: TemplateStringsArray) {
   return `Cats: ${templateString[0]}`;
@@ -26,5 +27,5 @@ export const setFilterString = createAction(
 
 export const setShownCats = createAction(
   scoped`Set Shown Cats String`,
-  props<{ shownCats: number|null }>()
+  props<{ shownCats: PageEvent }>()
 );
