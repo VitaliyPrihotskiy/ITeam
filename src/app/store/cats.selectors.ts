@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ViewCat } from '../models/cats.model';
+import { ViewCat } from '../models/view-cat.model';
 import { CatsState, CATS_FEATURE_KEY } from './cats.reducer';
-import { PageEvent } from '@angular/material/paginator';
 
 const getCatsFeatureState = createFeatureSelector<CatsState>(CATS_FEATURE_KEY);
 
@@ -15,28 +14,47 @@ export const getFilterString = createSelector(
   (state) => state.filterString
 );
 
-export const getShownCats = createSelector(
+export const getCatsCount = createSelector(
   getCatsFeatureState,
-  (state) => state.shownCats
+  (state) => state.catsCount
+);
+
+export const getPageSize = createSelector(
+  getCatsFeatureState,
+  (state) => state.pageSize
+);
+
+export const getCurrentPage = createSelector(
+  getCatsFeatureState,
+  (state) => state.currentPage
+);
+
+export const getIsDataLoading = createSelector(
+  getCatsFeatureState,
+  (state) => state.isLoading
 );
 
 export const getFilteredCats = createSelector(
   getCats,
   getFilterString,
-  getShownCats,
-  (cats, filterString, shownCats) => filter(filterString, cats, shownCats)
+  (cats, filterString) => filter(filterString, cats)
 );
 
 export const getFilteredCatsViewModel = createSelector(
   getFilteredCats,
   getFilterString,
-  (cats, filterString) => ({
+  getCatsCount,
+  getIsDataLoading,
+  (cats, filterString, catsCount, isLoading) => ({
     cats,
     filterString,
+    catsCount,
+    isLoading,
+    isListShown: cats.length || isLoading
   })
 );
 
-function filter(input: string, itemList: ViewCat[], pageEvent: PageEvent): ViewCat[] {
+function filter(input: string, itemList: ViewCat[]): ViewCat[] {
   input = input.toLowerCase();
   itemList = itemList.filter(
     (e) =>
@@ -44,13 +62,5 @@ function filter(input: string, itemList: ViewCat[], pageEvent: PageEvent): ViewC
       e.breedDescription.toLowerCase().includes(input) ||
       e.breedTemperament.toLowerCase().includes(input)
   );
-  if (pageEvent) {
-    const startIndex = pageEvent.pageIndex * pageEvent.pageSize;
-  let endIndex  = startIndex +pageEvent.pageSize;
-  if (endIndex>itemList.length){
-    endIndex=itemList.length
-  }
-    itemList = itemList.slice(startIndex, endIndex);
-  }
   return itemList;
 }

@@ -1,33 +1,40 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { params } from '../constants/cats.constants';
+import { GET_CATS_URL } from '../constants/cats.constants';
 import { CatFromAPI } from '../models/cat-api.models';
-import { ViewCat } from '../models/cats.model';
+import { CatsData } from '../models/cats-data.model';
 
 @Injectable({ providedIn: 'root' })
 export class CatsService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
-  getCats(): Observable<ViewCat[]> {
-    return this.httpClient.get<CatFromAPI[]>(environment.cat_api_url, { params }).pipe(
-      map((cats) =>
-        cats.map((cat) => {
-          const {
-            name: breedName,
-            description: breedDescription,
-            temperament: breedTemperament,
-          } = cat.breeds[0];
-          const { url } = cat;
+  getCats(pageSize: number, currentPage: number): Observable<CatsData> {
+    return this.httpClient.get<CatFromAPI[]>(GET_CATS_URL(pageSize, currentPage), { observe: 'response' }).pipe(
+      map((resp) => {
 
-          return {
-            breedName,
-            breedDescription,
-            breedTemperament,
-            url,
-          };
-        })
+        const catsCount = resp?.headers?.get('pagination-count');
+        const cats = resp.body || [];
+
+        return {
+          cats: cats.map((cat) => {
+            const {
+              name: breedName,
+              description: breedDescription,
+              temperament: breedTemperament,
+            } = cat.breeds[0];
+            const { url } = cat;
+
+            return {
+              breedName,
+              breedDescription,
+              breedTemperament,
+              url,
+            };
+          }),
+          catsCount: catsCount ? +catsCount : 0
+        }
+      }
       )
     );
   }
