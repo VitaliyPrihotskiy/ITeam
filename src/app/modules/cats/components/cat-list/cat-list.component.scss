@@ -2,7 +2,7 @@
   margin: 15px;
 
   p {
-    font-family: 'Montserrat';
+    font-family: "Montserrat";
     font-style: normal;
     font-size: 120%;
     font-weight: 400;
@@ -33,4 +33,35 @@ input {
 
 mat-slider {
   width: 300px;
+}
+
+.loading-indicator {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.loading-indicator:before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media screen and (min-width: 360px) {
+  input {
+    width: 85vw;
+    font-size: 0.9rem;
+  }
 }

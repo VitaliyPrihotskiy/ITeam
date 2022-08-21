@@ -10,7 +10,7 @@ import { CatsEffect } from './store/cats.effects';
 import { CATS_FEATURE_KEY, reducer } from './store/cats.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { JwtInterceptor } from './interceptors/JwtInterceptor';
+import { ApiKeyInterceptor } from './interceptors/api-key-interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,7 +30,7 @@ import { JwtInterceptor } from './interceptors/JwtInterceptor';
   ],
   bootstrap: [AppComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiKeyInterceptor, multi: true },
   ],
 })
 export class AppModule {}

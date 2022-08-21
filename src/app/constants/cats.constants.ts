@@ -1,11 +1,5 @@
-import { HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 
-export const headers = new HttpHeaders()
-  .set('Content-Type', 'application/json')
-  .set('x-api-key', environment.x_api_key);
+export const GET_CATS_URL = (limit: number, page: number): string =>
+`https://api.thecatapi.com/v1/images/search?limit=${limit}&page=${page}&has_breeds=true&order=ASC`
 
-export const params = new HttpParams()
-  .set('limit', '25')
-  .set('has_breeds', 'true')
-  .set('order', 'ASC');
+export const DEFAULT_PAGE_SIZE = 10;

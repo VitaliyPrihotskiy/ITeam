@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { ViewCat } from 'src/app/models/cats.model';
+import { ViewCat } from 'src/app/models/view-cat.model';
 
 @Component({
   selector: 'app-cat-card',

@@ -8,6 +8,7 @@ import { HighlighterPipe } from './pipes/highlighter.pipe';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [CatListComponent, CatCardComponent, HighlighterPipe],
@@ -19,6 +20,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatPaginatorModule,
     MatButtonModule,
     FlexLayoutModule,
+    MatProgressSpinnerModule
   ],
 })
 export class CatsModule {}

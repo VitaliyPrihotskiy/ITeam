@@ -1,13 +1,13 @@
 import { Action, createReducer, on } from "@ngrx/store";
-import { ViewCat } from "../models/cats.model";
+import { DEFAULT_PAGE_SIZE } from "../constants/cats.constants";
+import { ViewCat } from "../models/view-cat.model";
 import {
     loadCats,
     loadCatsFailure,
     loadCatsSuccess,
     setFilterString,
-    setShownCats,
+    setPaginationData,
 } from "./cats.action";
-import { PageEvent } from '@angular/material/paginator';
 
 export const CATS_FEATURE_KEY = 'cats';
 
@@ -16,7 +16,9 @@ export interface CatsState {
     isLoading: boolean;
     error: unknown;
     filterString: string;
-    shownCats:PageEvent;
+    currentPage: number;
+    pageSize: number,
+    catsCount: number,
 }
 
 const initialState: CatsState = {
@@ -24,12 +26,9 @@ const initialState: CatsState = {
     isLoading: false,
     error: null,
     filterString: '',
-    shownCats:{
-        length:25,
-        pageIndex:0,
-        pageSize:10,
-        previousPageIndex:0,
-    },
+    currentPage: 0,
+    pageSize: DEFAULT_PAGE_SIZE,
+    catsCount: 0,
 };
 
 const catsReducer = createReducer(
@@ -38,9 +37,10 @@ const catsReducer = createReducer(
         ...state,
         isLoading: true,
     })),
-    on(loadCatsSuccess, (state, { cats }) => ({
+    on(loadCatsSuccess, (state, { catsData }) => ({
         ...state,
-        cats,
+        cats: catsData.cats,
+        catsCount: catsData.catsCount,
         isLoading: false,
         error: null
     })),
@@ -53,9 +53,11 @@ const catsReducer = createReducer(
         ...state,
         filterString
     })),
-    on(setShownCats, (state, { shownCats }) => ({
+
+    on(setPaginationData, (state, { pageSize, currentPage }) => ({
         ...state,
-        shownCats
+        pageSize,
+        currentPage
     })),
 )
 

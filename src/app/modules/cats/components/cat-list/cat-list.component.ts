@@ -3,10 +3,11 @@ import { Store } from '@ngrx/store';
 import {
   loadCats,
   setFilterString,
-  setShownCats,
+  setPaginationData,
 } from 'src/app/store/cats.action';
 import { getFilteredCatsViewModel } from 'src/app/store/cats.selectors';
 import { PageEvent } from '@angular/material/paginator';
+import { DEFAULT_PAGE_SIZE } from '../../../../constants/cats.constants';
 
 @Component({
   selector: 'app-cat-list',
@@ -16,6 +17,8 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class CatListComponent implements OnInit {
   readonly viewModel$ = this.store.select(getFilteredCatsViewModel);
+  readonly defaultPageSize = DEFAULT_PAGE_SIZE;
+  readonly pageSizeOptions = [10, 25, 50, 75, 100];
 
   constructor(private readonly store: Store) {}
 
@@ -28,7 +31,6 @@ export class CatListComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent): void {
-    this.store.dispatch(setShownCats({ shownCats: event }));
+    this.store.dispatch(setPaginationData({ currentPage: event.pageIndex, pageSize: event.pageSize}));
   }
-
 }

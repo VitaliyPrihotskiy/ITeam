@@ -1,6 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { ViewCat } from '../models/cats.model';
-import { PageEvent } from '@angular/material/paginator';
+import { CatsData } from '../models/cats-data.model';
 
 function scoped(templateString: TemplateStringsArray) {
   return `Cats: ${templateString[0]}`;
@@ -12,7 +11,7 @@ export const loadCats = createAction(
 
 export const loadCatsSuccess = createAction(
   scoped`Load Cats Success`,
-  props<{ cats: ViewCat[] }>()
+  props<{ catsData: CatsData }>()
 );
 
 export const loadCatsFailure = createAction(
@@ -25,7 +24,7 @@ export const setFilterString = createAction(
   props<{ filterString: string }>()
 );
 
-export const setShownCats = createAction(
-  scoped`Set Shown Cats String`,
-  props<{ shownCats: PageEvent }>()
+export const setPaginationData = createAction(
+  scoped`Set Pagination Data`,
+  props<{ pageSize: number; currentPage: number }>()
 );
