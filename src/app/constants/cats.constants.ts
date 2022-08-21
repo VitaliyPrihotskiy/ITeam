@@ -1,7 +1,11 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
-export const GET_CATS_URL =
-  'https://api.thecatapi.com/v1/images/search?limit=25&has_breeds=true';
 export const headers = new HttpHeaders()
   .set('Content-Type', 'application/json')
-  .set('x-api-key', 'a3675da6-635e-45b9-9ea0-b92e00d810ba');
+  .set('x-api-key', environment.x_api_key);
+
+export const params = new HttpParams()
+  .set('limit', '25')
+  .set('has_breeds', 'true')
+  .set('order', 'ASC');
