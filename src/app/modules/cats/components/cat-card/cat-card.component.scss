@@ -1,0 +1,32 @@
+img {
+  width: 100%;
+  height: 20vw;
+  object-fit: cover;
+  object-position: 0 0;
+}
+
+.mat-card-content {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.description {
+  //*** Optional text-overflow wrapper ***
+  // overflow-wrap: break-word;
+  // overflow: hidden;
+  // -webkit-line-clamp: 3;
+  // display: -webkit-box;
+  // -webkit-box-orient: vertical;
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #363636;
+}
+
+::ng-deep {
+  .highlighted-text {
+    background-color: #bcbc7d;
+  }
+}

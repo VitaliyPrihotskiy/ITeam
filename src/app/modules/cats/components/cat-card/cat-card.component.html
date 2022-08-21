@@ -1,0 +1,19 @@
+<mat-card *ngIf="cat" class="example-card">
+  <div class="img-container">
+    <img mat-card-image [src]="cat.url" alt="Cat image" />
+  </div>
+  <mat-card-content>
+    <mat-card-title class="description">
+      <mat-card-content
+        [innerHtml]="cat.breedName | highlighter: filterString"
+      ></mat-card-content>
+    </mat-card-title>
+    <mat-card-subtitle
+      [innerHtml]="cat.breedTemperament | highlighter: filterString"
+    ></mat-card-subtitle>
+    <p
+      class="description"
+      [innerHtml]="cat.breedDescription | highlighter: filterString"
+    ></p>
+  </mat-card-content>
+</mat-card>

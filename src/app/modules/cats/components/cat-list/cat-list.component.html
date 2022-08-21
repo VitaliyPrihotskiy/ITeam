@@ -1,0 +1,39 @@
+<div *ngIf="viewModel$ | async as viewModel">
+  <main>
+    <div class="filter">
+      <p>Filter by keywords</p>
+      <input
+        #inp
+        [value]="viewModel.filterString"
+        (input)="filter(inp.value)"
+        placeholder="Input breed, temperament or part of description"
+      />
+      <mat-slider
+        thumbLabel
+        tickInterval="1"
+        step="1"
+        min="0"
+        max="25"
+        aria-label="cats"
+        (input)="setShownCatsLength($event)"
+      ></mat-slider>
+    </div>
+  </main>
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+      <div
+        fxFlex="33%"
+        fxFlex.xs="100%"
+        fxFlex.sm="50%"
+        fxFlex.md="50%"
+        *ngFor="let item of viewModel.cats"
+      >
+        <app-cat-card
+          class="mat-elevation-z4"
+          [cat]="item"
+          [filterString]="viewModel.filterString"
+        ></app-cat-card>
+      </div>
+    </div>
+  </div>
+</div>
