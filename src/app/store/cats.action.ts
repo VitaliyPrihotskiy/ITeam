@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Cat } from '../models/cats.model';
+import { ViewCat } from '../models/cats.model';
 import { PageEvent } from '@angular/material/paginator';
 
 function scoped(templateString: TemplateStringsArray) {
@@ -12,7 +12,7 @@ export const loadCats = createAction(
 
 export const loadCatsSuccess = createAction(
   scoped`Load Cats Success`,
-  props<{ cats: Cat[] }>()
+  props<{ cats: ViewCat[] }>()
 );
 
 export const loadCatsFailure = createAction(

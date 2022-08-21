@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from "@ngrx/store";
-import { Cat } from "../models/cats.model";
+import { ViewCat } from "../models/cats.model";
 import {
     loadCats,
     loadCatsFailure,
@@ -12,7 +12,7 @@ import { PageEvent } from '@angular/material/paginator';
 export const CATS_FEATURE_KEY = 'cats';
 
 export interface CatsState {
-    cats: Cat[];
+    cats: ViewCat[];
     isLoading: boolean;
     error: unknown;
     filterString: string;

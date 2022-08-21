@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Cat } from 'src/app/models/cats.model';
-
+import { ViewCat } from 'src/app/models/cats.model';
 
 @Component({
   selector: 'app-cat-card',
@@ -9,6 +8,6 @@ import { Cat } from 'src/app/models/cats.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatCardComponent {
-  @Input() cat: Cat | null = null;
+  @Input() cat: ViewCat | null = null;
   @Input() filterString = '';
 }
